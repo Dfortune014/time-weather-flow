@@ -81,76 +81,92 @@ const Index = () => {
           }}
         />
         
-        <div className="relative container mx-auto px-4 py-12 sm:py-20">
+        <div className="relative container mx-auto px-4 py-8 sm:py-12">
           <div className="text-center max-w-4xl mx-auto">
-            <div className="flex items-center justify-center gap-2 mb-6">
+            <div className="flex items-center justify-center gap-2 mb-4">
               <div className="p-3 rounded-full bg-primary/10 animate-pulse-glow">
-                <Sparkles className="w-8 h-8 text-primary" />
+                <Sparkles className="w-6 h-6 text-primary" />
               </div>
               <div className="p-3 rounded-full bg-primary/10 animate-float">
-                <Calendar className="w-8 h-8 text-primary" />
+                <Calendar className="w-6 h-6 text-primary" />
               </div>
               <div className="p-3 rounded-full bg-primary/10 animate-pulse-glow">
-                <Cloud className="w-8 h-8 text-primary" />
+                <Cloud className="w-6 h-6 text-primary" />
               </div>
             </div>
             
-            <h1 className="text-4xl sm:text-6xl font-bold text-foreground mb-6 animate-slide-up">
+            <h1 className="text-3xl sm:text-5xl font-bold text-foreground mb-4 animate-slide-up">
               Smart Meeting
               <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
                 {" "}Scheduler
               </span>
             </h1>
             
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto animate-slide-up">
-              Paste any message or email, and I'll find the perfect meeting times based on your calendar availability and weather conditions.
+            <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto animate-slide-up">
+              Paste any message or email, and I'll find the perfect meeting times based on your preferences.
             </p>
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* Main Layout */}
       <div className="container mx-auto px-4 pb-20">
-        <div className="max-w-4xl mx-auto space-y-8">
-          {/* Calendar Status */}
-          <CalendarStatus 
-            isConnected={isCalendarConnected}
-            onConnect={handleCalendarConnect}
-          />
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            {/* Settings Sidebar */}
+            <div className="lg:col-span-1 space-y-6">
+              <div className="lg:sticky lg:top-8 space-y-6">
+                <div className="text-center lg:text-left">
+                  <h2 className="text-xl font-semibold text-foreground mb-2">Meeting Settings</h2>
+                  <p className="text-sm text-muted-foreground">Configure your preferences</p>
+                </div>
+                
+                {/* Calendar Status */}
+                <CalendarStatus 
+                  isConnected={isCalendarConnected}
+                  onConnect={handleCalendarConnect}
+                />
 
-          {/* Meeting Type Selector */}
-          <MeetingTypeSelector 
-            selectedType={meetingType}
-            onTypeChange={setMeetingType}
-          />
+                {/* Meeting Type Selector */}
+                <MeetingTypeSelector 
+                  selectedType={meetingType}
+                  onTypeChange={setMeetingType}
+                />
 
-          {/* Location Selector - only show for in-person meetings */}
-          {meetingType === "in-person" && (
-            <LocationSelector 
-              currentLocation={userLocation}
-              onLocationChange={setUserLocation}
-            />
-          )}
+                {/* Location Selector - only show for in-person meetings */}
+                {meetingType === "in-person" && (
+                  <LocationSelector 
+                    currentLocation={userLocation}
+                    onLocationChange={setUserLocation}
+                  />
+                )}
 
-          {/* Weather Card - only show for in-person meetings */}
-          {meetingType === "in-person" && (
-            <WeatherCard weather={mockWeather} />
-          )}
+                {/* Weather Card - only show for in-person meetings */}
+                {meetingType === "in-person" && (
+                  <WeatherCard weather={mockWeather} />
+                )}
+              </div>
+            </div>
 
-          {/* Text Input */}
-          <TextInputBox 
-            onTextSubmit={handleTextSubmit}
-            isLoading={isAnalyzing}
-          />
+            {/* Main Content */}
+            <div className="lg:col-span-2 space-y-8">
+              {/* Text Input */}
+              <TextInputBox 
+                onTextSubmit={handleTextSubmit}
+                isLoading={isAnalyzing}
+              />
 
-          {/* Meeting Recommendations */}
-          {showRecommendations && (
-            <MeetingRecommendations 
-              recommendations={mockRecommendations}
-              meetingType={meetingType}
-              className="animate-slide-up"
-            />
-          )}
+              {/* Meeting Recommendations */}
+              {showRecommendations && (
+                <MeetingRecommendations 
+                  recommendations={mockRecommendations}
+                  meetingType={meetingType}
+                  className="animate-slide-up"
+                />
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ import { TextInputBox } from "@/components/TextInputBox";
 import { WeatherCard } from "@/components/WeatherCard";
 import { CalendarStatus } from "@/components/CalendarStatus";
 import { MeetingRecommendations } from "@/components/MeetingRecommendations";
+import { MeetingTypeSelector } from "@/components/MeetingTypeSelector";
 import { Cloud, Calendar, Sparkles } from "lucide-react";
 import heroImage from "@/assets/hero-scheduling.jpg";
 
@@ -10,6 +11,7 @@ const Index = () => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isCalendarConnected, setIsCalendarConnected] = useState(false);
   const [showRecommendations, setShowRecommendations] = useState(false);
+  const [meetingType, setMeetingType] = useState<"virtual" | "in-person">("in-person");
 
   // Mock data for demonstration
   const mockWeather = {
@@ -114,8 +116,16 @@ const Index = () => {
             onConnect={handleCalendarConnect}
           />
 
-          {/* Weather Card */}
-          <WeatherCard weather={mockWeather} />
+          {/* Meeting Type Selector */}
+          <MeetingTypeSelector 
+            selectedType={meetingType}
+            onTypeChange={setMeetingType}
+          />
+
+          {/* Weather Card - only show for in-person meetings */}
+          {meetingType === "in-person" && (
+            <WeatherCard weather={mockWeather} />
+          )}
 
           {/* Text Input */}
           <TextInputBox 
@@ -127,6 +137,7 @@ const Index = () => {
           {showRecommendations && (
             <MeetingRecommendations 
               recommendations={mockRecommendations}
+              meetingType={meetingType}
               className="animate-slide-up"
             />
           )}

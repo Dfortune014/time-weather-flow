@@ -18,11 +18,13 @@ interface MeetingOption {
 
 interface MeetingRecommendationsProps {
   recommendations: MeetingOption[];
+  meetingType: "virtual" | "in-person";
   className?: string;
 }
 
 export const MeetingRecommendations = ({ 
   recommendations, 
+  meetingType,
   className = "" 
 }: MeetingRecommendationsProps) => {
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -97,10 +99,12 @@ export const MeetingRecommendations = ({
               
               <div className="flex items-center gap-4 text-sm text-muted-foreground">
                 <span>Duration: {option.duration}</span>
-                <div className="flex items-center gap-1">
-                  <WeatherIcon condition={option.weatherCondition} />
-                  <span>Weather Score: {option.weatherScore}/10</span>
-                </div>
+                {meetingType === "in-person" && (
+                  <div className="flex items-center gap-1">
+                    <WeatherIcon condition={option.weatherCondition} />
+                    <span>Weather Score: {option.weatherScore}/10</span>
+                  </div>
+                )}
                 {option.location && (
                   <div className="flex items-center gap-1">
                     <MapPin className="w-3 h-3" />

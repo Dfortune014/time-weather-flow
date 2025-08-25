@@ -24,24 +24,24 @@ export const MeetingTypeSelector = ({
       <RadioGroup 
         value={selectedType} 
         onValueChange={(value) => onTypeChange(value as "virtual" | "in-person")}
-        className="flex flex-col sm:flex-row gap-4"
+        className="grid grid-cols-1 sm:grid-cols-2 gap-4"
       >
-        <div className="flex items-center space-x-3 p-4 rounded-lg border border-border/50 hover:border-primary/50 transition-colors cursor-pointer glass-effect">
+        <div className="flex items-center justify-center space-x-3 p-6 rounded-lg border border-border/50 hover:border-primary/50 transition-colors cursor-pointer glass-effect w-full">
           <RadioGroupItem value="virtual" id="virtual" />
-          <Label htmlFor="virtual" className="flex items-center gap-2 cursor-pointer">
-            <Monitor className="w-4 h-4 text-primary" />
-            <div>
+          <Label htmlFor="virtual" className="flex items-center gap-3 cursor-pointer flex-1 justify-center">
+            <Monitor className="w-5 h-5 text-primary" />
+            <div className="text-center">
               <div className="font-medium text-foreground">Virtual Meeting</div>
               <div className="text-sm text-muted-foreground">Online video call</div>
             </div>
           </Label>
         </div>
         
-        <div className="flex items-center space-x-3 p-4 rounded-lg border border-border/50 hover:border-primary/50 transition-colors cursor-pointer glass-effect">
+        <div className="flex items-center justify-center space-x-3 p-6 rounded-lg border border-border/50 hover:border-primary/50 transition-colors cursor-pointer glass-effect w-full">
           <RadioGroupItem value="in-person" id="in-person" />
-          <Label htmlFor="in-person" className="flex items-center gap-2 cursor-pointer">
-            <MapPin className="w-4 h-4 text-primary" />
-            <div>
+          <Label htmlFor="in-person" className="flex items-center gap-3 cursor-pointer flex-1 justify-center">
+            <MapPin className="w-5 h-5 text-primary" />
+            <div className="text-center">
               <div className="font-medium text-foreground">In-Person Meeting</div>
               <div className="text-sm text-muted-foreground">Weather will be considered</div>
             </div>

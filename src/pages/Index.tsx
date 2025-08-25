@@ -4,6 +4,7 @@ import { WeatherCard } from "@/components/WeatherCard";
 import { CalendarStatus } from "@/components/CalendarStatus";
 import { MeetingRecommendations } from "@/components/MeetingRecommendations";
 import { MeetingTypeSelector } from "@/components/MeetingTypeSelector";
+import { LocationSelector } from "@/components/LocationSelector";
 import { Cloud, Calendar, Sparkles } from "lucide-react";
 import heroImage from "@/assets/hero-scheduling.jpg";
 
@@ -12,13 +13,14 @@ const Index = () => {
   const [isCalendarConnected, setIsCalendarConnected] = useState(false);
   const [showRecommendations, setShowRecommendations] = useState(false);
   const [meetingType, setMeetingType] = useState<"virtual" | "in-person">("in-person");
+  const [userLocation, setUserLocation] = useState("San Francisco, CA");
 
   // Mock data for demonstration
   const mockWeather = {
     temperature: 72,
     condition: "sunny" as const,
     description: "Perfect weather for outdoor meetings",
-    location: "San Francisco, CA"
+    location: userLocation
   };
 
   const mockRecommendations = [
@@ -121,6 +123,14 @@ const Index = () => {
             selectedType={meetingType}
             onTypeChange={setMeetingType}
           />
+
+          {/* Location Selector - only show for in-person meetings */}
+          {meetingType === "in-person" && (
+            <LocationSelector 
+              currentLocation={userLocation}
+              onLocationChange={setUserLocation}
+            />
+          )}
 
           {/* Weather Card - only show for in-person meetings */}
           {meetingType === "in-person" && (
